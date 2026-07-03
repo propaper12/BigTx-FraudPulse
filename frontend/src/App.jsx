@@ -2440,7 +2440,6 @@ function App() {
                               ));
                             })()}
                           </div>
-
                           <div style={{ marginTop: '10px', padding: '10px', background: 'rgba(56, 189, 248, 0.03)', border: '1px solid rgba(56, 189, 248, 0.1)', borderRadius: '4px', fontSize: '9.5px', color: 'var(--text-muted)', lineHeight: '1.4', fontStyle: 'italic', textAlign: 'center' }}>
                             💡 {lang === 'TR' 
                               ? "Cihaza özel XAI teşhis grafiklerini ve SCADA kontrol butonlarını yüklemek için soldaki anomali tablosundan herhangi bir satırda 'Teşhis' butonuna basın."
@@ -2463,7 +2462,7 @@ function App() {
               </div>
 
               <div className="main-grid" style={{ gridTemplateColumns: '1.4fr 1.1fr', gap: '20px' }}>
-                <div className="panel" style={{ height: '430px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
+                <div className="panel" style={{ height: '480px', display: 'flex', flexDirection: 'column', gap: '15px' }}>
                   <div className="panel-header">
                     <h3>Model Metrics & Diagnostics</h3>
                   </div>
@@ -2514,9 +2513,53 @@ function App() {
                       </div>
                     </div>
                   </div>
+
+                  {/* Model Drift & Online Retraining */}
+                  <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '10px', marginTop: '5px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '8px' }}>
+                      <span style={{ fontSize: '10px', color: 'var(--text-muted)', fontWeight: 'bold' }}>
+                        MODEL DRIFT MONITOR & ONLINE TRAINING
+                      </span>
+                      <span style={{ fontSize: '8px', color: 'var(--green)', background: 'rgba(22,163,74,0.1)', padding: '1px 4px', borderRadius: '3px', fontWeight: 'bold' }}>
+                        DRIFT: 1.8% (NORMAL)
+                      </span>
+                    </div>
+                    <div style={{ display: 'flex', gap: '10px', alignItems: 'center' }}>
+                      <div style={{ flex: 1 }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '9px', color: 'var(--text-muted)', marginBottom: '4px' }}>
+                          <span>Concept Drift Index:</span>
+                          <span style={{ fontFamily: 'JetBrains Mono', color: 'var(--cyan)' }}>0.018 PSI</span>
+                        </div>
+                        <div style={{ height: '5px', background: 'rgba(0,0,0,0.05)', borderRadius: '2.5px', overflow: 'hidden' }}>
+                          <div style={{ width: '18%', height: '100%', background: 'var(--cyan)' }} />
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => {
+                          alert(lang === 'TR' ? 'ClickHouse verileri kullanılarak XGBoost modelinin online eğitimi tetiklendi. Model parametreleri güncelleniyor...' : 'XGBoost online retraining triggered using ClickHouse telemetry. Updating model weights...');
+                        }}
+                        style={{
+                          background: 'var(--cyan)',
+                          color: '#fff',
+                          border: 'none',
+                          borderRadius: '4px',
+                          padding: '6px 12px',
+                          fontSize: '10px',
+                          fontWeight: 'bold',
+                          cursor: 'pointer',
+                          whiteSpace: 'nowrap',
+                          transition: 'opacity 0.2s'
+                        }}
+                        onMouseOver={(e) => e.target.style.opacity = '0.9'}
+                        onMouseOut={(e) => e.target.style.opacity = '1'}
+                      >
+                        🔄 {lang === 'TR' ? 'Modeli Yeniden Eğit' : 'Retrain Model'}
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="panel" style={{ height: '430px', display: 'flex', flexDirection: 'column' }}>
+                <div className="panel" style={{ height: '480px', display: 'flex', flexDirection: 'column' }}>
                   <div className="panel-header" style={{ marginBottom: '8px' }}>
                     <h3>Feature Importance (Öznitelik Ağırlıkları)</h3>
                   </div>
@@ -2555,19 +2598,19 @@ function App() {
                       </span>
                       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '9px', fontWeight: 'bold', color: 'var(--text-main)', textAlign: 'center' }}>
                         <div style={{ padding: '6px', background: 'rgba(0,0,0,0.02)', border: '1px solid var(--border-color)', borderRadius: '4px', width: '22%' }}>
-                          IoT Meter Stream
+                          Payment Tx Stream
                         </div>
                         <div style={{ color: 'var(--text-muted)' }}>➔</div>
                         <div style={{ padding: '6px', background: 'rgba(2, 132, 199, 0.05)', border: '1px solid var(--cyan)', borderRadius: '4px', width: '22%' }}>
-                          Voltage Stability
+                          SHAP Feature Extractor
                         </div>
                         <div style={{ color: 'var(--text-muted)' }}>➔</div>
                         <div style={{ padding: '6px', background: 'rgba(2, 132, 199, 0.05)', border: '1px solid var(--cyan)', borderRadius: '4px', width: '22%' }}>
-                          Grid Random Forest
+                          XGBoost Classifier
                         </div>
                         <div style={{ color: 'var(--text-muted)' }}>➔</div>
                         <div style={{ padding: '6px', background: 'rgba(22, 163, 74, 0.05)', border: '1px solid var(--green)', borderRadius: '4px', width: '22%' }}>
-                          Stability Output
+                          Security Score Output
                         </div>
                       </div>
                     </div>
@@ -2622,7 +2665,7 @@ function App() {
                   {/* Injector Form */}
                   <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '15px', marginTop: '10px' }}>
                     <h4 style={{ margin: '0 0 10px 0', fontSize: '11px', textTransform: 'uppercase', color: 'var(--cyan)' }}>
-                      🧪 {lang === 'TR' ? 'CANLI ŞEBEKE ANOMALİ ENJEKTÖRÜ (DEMO)' : 'LIVE GRID ANOMALY INJECTION TOOL (DEMO)'}
+                      🧪 {lang === 'TR' ? 'CANLI DOLANDIRICILIK ANOMALİ ENJEKTÖRÜ (DEMO)' : 'LIVE FRAUD ANOMALY INJECTION TOOL (DEMO)'}
                     </h4>
                     
                     {/* Quick Simulation Buttons */}
@@ -2631,90 +2674,90 @@ function App() {
                         type="button"
                         onClick={() => {
                           const simulatedAlert = {
-                            account_id: "TRAFO_301",
-                            hashtag: "Transformer",
-                            post_text: "Telemetry: Current Load=580kW (Critical Limit Exceeded), Voltage=198V, Temp=42C",
+                            account_id: "ACC_9982",
+                            hashtag: "Credit Card",
+                            post_text: "Telemetry: 12 tx/s from same card (Velocity Limit Exceeded), IP: 176.43.12.8",
                             city: "Istanbul",
-                            reason: "CRITICAL_OVERLOAD",
+                            reason: "Bot_Script_v3",
                             ai_risk_score: 98.5,
                             nlp_sentiment: -0.85,
                             truth_score: 15.0,
-                            fact_check_result: "ALERT: Explainable AI model flagged high risk. Primary contributor: Load Overload (82.4% impact). Telemetry: Load=580kW, Voltage=198V, Temp=42C. Recommended Action: Route load or isolate device.",
+                            fact_check_result: "ALERT: Explainable AI model flagged high risk. Primary contributor: High Velocity (82.4% impact). Telemetry: 12 tx/s. Recommended Action: Freeze card immediately.",
                             is_bot: true,
                             timestamp: new Date().toISOString(),
-                            device: "Transformer"
+                            device: "POS Terminal"
                           };
                           setAlerts(prev => [simulatedAlert, ...prev]);
                         }}
                         style={{ background: 'rgba(239, 68, 68, 0.08)', color: 'var(--red)', border: '1px solid rgba(239, 68, 68, 0.2)', borderRadius: '4px', padding: '5px 10px', fontSize: '10px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
                       >
-                        ⚡ {lang === 'TR' ? 'AŞIRI YÜK ENJEKTE ET' : 'INJECT OVERLOAD'}
+                        ⚡ {lang === 'TR' ? 'BOT SCRİPT ENJEKTE ET' : 'INJECT BOT SCRIPT'}
                       </button>
                       
                       <button
                         type="button"
                         onClick={() => {
                           const simulatedAlert = {
-                            account_id: "METER_102",
-                            hashtag: "SmartMeter",
-                            post_text: "Telemetry: Current Load=2.5kW, Voltage=175V (Severe Voltage Drop), Temp=22C",
-                            city: "London",
-                            reason: "VOLTAGE_DROP",
+                            account_id: "ACC_2819",
+                            hashtag: "FAST Wire",
+                            post_text: "Telemetry: Amount=45000 TRY, IP: 185.93.2.4 (Offshore Node)",
+                            city: "Nicosia",
+                            reason: "OFFSHORE_IP",
                             ai_risk_score: 88.0,
                             nlp_sentiment: -0.65,
                             truth_score: 28.0,
-                            fact_check_result: "ALERT: Explainable AI model flagged high risk. Primary contributor: Voltage Drop (74.2% impact). Telemetry: Load=2.5kW, Voltage=175V, Temp=22C. Recommended Action: Verify local grid phase balance.",
+                            fact_check_result: "ALERT: Explainable AI model flagged high risk. Primary contributor: High-Risk IP Location (74.2% impact). Telemetry: Nicosia node routing. Recommended Action: Verify KYC & Hold Transaction.",
                             is_bot: true,
                             timestamp: new Date().toISOString(),
-                            device: "SmartMeter"
+                            device: "Web Browser"
                           };
                           setAlerts(prev => [simulatedAlert, ...prev]);
                         }}
                         style={{ background: 'rgba(245, 158, 11, 0.08)', color: 'var(--orange)', border: '1px solid rgba(245, 158, 11, 0.2)', borderRadius: '4px', padding: '5px 10px', fontSize: '10px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
                       >
-                        📉 {lang === 'TR' ? 'VOLTAJ DÜŞÜŞÜ ENJEKTE ET' : 'INJECT VOLTAGE DROP'}
+                        📉 {lang === 'TR' ? 'OFFSHORE TRANSFER ENJEKTE ET' : 'INJECT OFFSHORE IP'}
                       </button>
 
                       <button
                         type="button"
                         onClick={() => {
                           const simulatedAlert = {
-                            account_id: "CHARGER_201",
-                            hashtag: "EVCharger",
-                            post_text: "Telemetry: Current Load=42kW, Voltage=216V, Temp=98C (Critical Temperature Alert)",
-                            city: "Berlin",
-                            reason: "OVERHEATING",
+                            account_id: "ACC_7721",
+                            hashtag: "EFT",
+                            post_text: "Telemetry: Amount=98000 TRY, IP: 85.105.42.1 (Breaches KYC single tx limit)",
+                            city: "Ankara",
+                            reason: "CRITICAL_AMOUNT",
                             ai_risk_score: 99.4,
                             nlp_sentiment: -0.92,
                             truth_score: 12.0,
-                            fact_check_result: "ALERT: Explainable AI model flagged high risk. Primary contributor: Thermal Runaway (91.1% impact). Telemetry: Load=42kW, Voltage=216V, Temp=98C. Recommended Action: Route load or shut down EV Charger.",
+                            fact_check_result: "ALERT: Explainable AI model flagged high risk. Primary contributor: Critical Amount (91.1% impact). Telemetry: 98,000 TRY. Recommended Action: Place hold on account pending KYC validation.",
                             is_bot: true,
                             timestamp: new Date().toISOString(),
-                            device: "EVCharger"
+                            device: "Mobile App"
                           };
                           setAlerts(prev => [simulatedAlert, ...prev]);
                         }}
                         style={{ background: 'rgba(239, 68, 68, 0.08)', color: 'var(--red)', border: '1px solid rgba(239, 68, 68, 0.2)', borderRadius: '4px', padding: '5px 10px', fontSize: '10px', fontWeight: 'bold', cursor: 'pointer', display: 'flex', alignItems: 'center', gap: '4px' }}
                       >
-                        🔥 {lang === 'TR' ? 'AŞIRI ISINMA ENJEKTE ET' : 'INJECT OVERHEATING'}
+                        🔥 {lang === 'TR' ? 'LİMİT AŞIMI ENJEKTE ET' : 'INJECT LIMIT BREACH'}
                       </button>
                     </div>
 
                     <form onSubmit={(e) => {
                       e.preventDefault();
-                      const pageInput = e.target.elements.page.value || 'Transformer';
-                      const editInput = e.target.elements.edit.value || 'Load=450kW, Voltage=190V, Temp=85C';
+                      const pageInput = e.target.elements.page.value || 'Credit Card';
+                      const editInput = e.target.elements.edit.value || 'Amount=15000 TRY, IP: 88.22.10.42';
                       
                       const simulatedAlert = {
-                        account_id: "TRAFO_INJECTED",
+                        account_id: "ACC_INJECTED",
                         hashtag: pageInput,
                         post_text: editInput,
                         city: "Istanbul",
-                        reason: "CRITICAL_OVERLOAD",
-                        ai_risk_score: 98.5,
-                        nlp_sentiment: -0.85,
+                        reason: "CRITICAL_AMOUNT",
+                        ai_risk_score: 95.5,
+                        nlp_sentiment: -0.80,
                         truth_score: 15.0,
-                        fact_check_result: `CRITICAL OVERLOAD: Transformer draws excessive load. Auto shedding triggered.`,
+                        fact_check_result: `CRITICAL AMOUNT: Large payment volume. Automatic validation required.`,
                         is_bot: true,
                         timestamp: new Date().toISOString(),
                         device: pageInput
@@ -2724,13 +2767,13 @@ function App() {
                     }} style={{ display: 'flex', gap: '8px' }}>
                       <input 
                         name="page" 
-                        placeholder={lang === 'TR' ? "Cihaz (örn. Transformer)" : "Device (e.g. Transformer)"}
+                        placeholder={lang === 'TR' ? "Kanal (örn. Credit Card)" : "Channel (e.g. Credit Card)"}
                         required 
                         style={{ flex: 1, padding: '4px 8px', fontSize: '11px', background: 'rgba(0,0,0,0.02)', border: '1px solid var(--border-color)', borderRadius: '4px', color: 'var(--text-main)' }} 
                       />
                       <input 
                         name="edit" 
-                        placeholder={lang === 'TR' ? "Telemetri (örn. Load=450kW...)" : "Telemetry (e.g. Load=450kW...)"}
+                        placeholder={lang === 'TR' ? "Telemetri (örn. Amount=25000...)" : "Telemetry (e.g. Amount=25000...)"}
                         required 
                         style={{ flex: 2, padding: '4px 8px', fontSize: '11px', background: 'rgba(0,0,0,0.02)', border: '1px solid var(--border-color)', borderRadius: '4px', color: 'var(--text-main)' }} 
                       />
@@ -2751,11 +2794,11 @@ function App() {
                   <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
                     <ResponsiveContainer width="100%" height={260}>
                       <RadarChart cx="50%" cy="50%" outerRadius="75%" data={[
-                        { subject: 'Overload', value: Math.round(Math.min(100, Math.max(20, alerts.filter(a => a.truth_score < 50).reduce((acc, a) => acc + Math.abs(a.nlp_sentiment) * 100, 0) / (alerts.filter(a => a.truth_score < 50).length || 1)))) },
-                        { subject: 'Temp Risk', value: Math.round(65 + Math.sin(Date.now() / 15000) * 15) },
-                        { subject: 'Phase Shift', value: Math.round(Math.min(100, 30 + (topCities.length * 7))) },
-                        { subject: 'Voltage Drop', value: Math.round(Math.min(100, 50 + (alerts.filter(a => a.truth_score < 30).length * 8))) },
-                        { subject: 'Freq Shift', value: Math.round(Math.min(100, parseFloat(liveMetrics.throughput) * 3)) }
+                        { subject: lang === 'TR' ? 'Hız Riski' : 'Velocity Risk', value: Math.round(Math.min(100, Math.max(20, alerts.filter(a => a.truth_score < 50).reduce((acc, a) => acc + Math.abs(a.nlp_sentiment) * 100, 0) / (alerts.filter(a => a.truth_score < 50).length || 1)))) },
+                        { subject: lang === 'TR' ? 'Tutar Riski' : 'Amount Risk', value: Math.round(65 + Math.sin(Date.now() / 15000) * 15) },
+                        { subject: lang === 'TR' ? 'Offshore IP' : 'Offshore IP', value: Math.round(Math.min(100, 30 + (topCities.length * 7))) },
+                        { subject: lang === 'TR' ? 'Gece Aktivitesi' : 'Night Activity', value: Math.round(Math.min(100, 50 + (alerts.filter(a => a.truth_score < 30).length * 8))) },
+                        { subject: lang === 'TR' ? 'Çoklu Kart' : 'Multi-Card', value: Math.round(Math.min(100, parseFloat(liveMetrics.throughput) * 30)) }
                       ]}>
                         <PolarGrid stroke="#cbd5e1" />
                         <PolarAngleAxis dataKey="subject" tick={{ fill: '#64748b', fontSize: 10, fontWeight: 'bold' }} />
@@ -2766,11 +2809,11 @@ function App() {
                     </ResponsiveContainer>
                     <div style={{ width: '100%', borderTop: '1px solid var(--border-color)', paddingTop: '10px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '8px', fontSize: '10px', marginTop: '10px' }}>
                       <div style={{ display: 'flex', justifyContent: 'space-between', padding: '4px 8px', background: 'rgba(22, 163, 74, 0.04)', borderRadius: '3px' }}>
-                        <span>Phase Balance:</span>
+                        <span>KYC Compliance:</span>
                         <strong style={{ color: 'var(--green)' }}>ACTIVE</strong>
                       </div>
                       <div style={{ display: 'flex', justifyContent: 'space-between', padding: '4px 8px', background: 'rgba(22, 163, 74, 0.04)', borderRadius: '3px' }}>
-                        <span>Voltage Health:</span>
+                        <span>3D Secure Guard:</span>
                         <strong style={{ color: 'var(--green)' }}>ACTIVE</strong>
                       </div>
                     </div>
