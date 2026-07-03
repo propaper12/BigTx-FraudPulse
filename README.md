@@ -24,7 +24,32 @@ graph TD
 *   **Database (OLAP):** [ClickHouse](https://clickhouse.com/) (Column-oriented DBMS) storing logs and model results with ultra-fast write throughput.
 *   **Model Diagnostics:** Explainable AI (XAI) calculations using **SHAP (SHapley Additive exPlanations)** weights to explain *why* the XGBoost classifier flagged an account.
 *   **Backend Server:** [FastAPI](https://fastapi.tiangolo.com/) providing Server-Sent Events (SSE) for low-latency live streaming to the UI.
-*   **Frontend Client:** React (Vite) styled with custom dark mode glassmorphism and real-time canvas visualizations.
+*   **Frontend Client:** React (Vite) styled with custom dark mode glassmorphism, Recharts visualization engine, and real-time canvas animations.
+
+---
+
+## 🎨 Futuristic SCADA Dashboard & Features
+
+The frontend is a custom-themed Indigo/Purple fintech dashboard featuring:
+
+### 1. 📊 Advanced Recharts Visualizations
+*   **Live Area Timeline Chart:** Toggle between **⚡ Velocity** (tx/s and bot alerts), **💰 Tx Volume** (total TRY and blocked fraud), and **🧠 AI Risk** (threat scores and incident frequency).
+*   **📍 City & Gateway Risk Distribution (New):** Horizontal BarChart comparing normal risk centers (Istanbul, Ankara, Izmir) against offshore hubs (Lefkoşa, Panama City, Grand Cayman) based on active streaming data.
+*   **📐 Diagnostic Radar Chart:** Visualizes multi-dimensional risk parameters: Amount Risk, Velocity, Offshore IP routing, Night Activity, and Multi-card attempts.
+*   **🔍 3D Transaction Scatter Chart:** Clusters live transactions along Amount (TRY) vs. Velocity (tx/s) coordinates, highlighting anomalies.
+*   **🍰 Fraud Reason Breakdown (Pie Chart):** Real-time breakdown of fraud triggers (Velocity Limits, Offshore IP Routing, Amount Limits, Identity Theft).
+
+### 2. 🚨 Real-Time Security Operations Center (SOC) Tools
+*   **Live Response Logs (New):** A system audit trail displaying millisecond-level automated mitigation events (e.g. freezing credit cards, rejecting offshore wires, placing KYC validation holds).
+*   **Interactive Anomaly Injector (New):** Inject simulated threat incidents into the Kafka pipeline:
+    *   *Inject Bot Script:* High-frequency POS terminal card-scanning scripts.
+    *   *Inject Offshore IP:* FAST wires routed from high-risk offshore routing networks.
+    *   *Inject Limit Breach:* EFT transfers exceeding the single transaction KYC limit.
+*   **Cyber Containment Actions:** Remotely trigger security overrides (Freeze Credit Card, Reject offshore IP, KYC Hold Account).
+
+### 3. 🧠 MLOps Model Drift & Retraining Control
+*   **Model Drift Monitor (New):** Live tracking of Population Stability Index (PSI) to detect concept drift in incoming transaction patterns.
+*   **Online Model Retraining (New):** Trigger XGBoost online model updates on the fly using historical data loaded directly from ClickHouse.
 
 ---
 
@@ -104,11 +129,3 @@ Once everything is up, you can access the following services in your browser:
 | **Redpanda Console** | [http://localhost:8080](http://localhost:8080) | Inspect Kafka partitions, topics, and message feeds |
 | **FastAPI Swagger API** | [http://localhost:8000/docs](http://localhost:8000/docs) | Interactive API endpoints & model metadata |
 | **ClickHouse Play** | [http://localhost:8123/play](http://localhost:8123/play) | Direct SQL querying playground |
-
----
-
-## 🔒 Security Actions & Cyber Overrides
-The dashboard allows security operators to override parameters and issue containment actions:
-*   **Freeze Card:** Temporarily suspends the credit card to prevent bot script withdrawals.
-*   **Reject Transaction:** Immediately rejects high-risk offshore IP transfers.
-*   **Hold Account:** Freezes funds for transactions exceeding critical amount limits pending manual KYC verification.
