@@ -1,3 +1,10 @@
+<img width="2072" height="1160" alt="Ekran görüntüsü 2026-07-03 173520" src="https://github.com/user-attachments/assets/3a0b640e-68d1-4bde-9377-2c5250a48d43" />
+<img width="2872" height="1538" alt="Ekran görüntüsü 2026-07-03 220452" src="https://github.com/user-attachments/assets/68644161-1055-4455-ba87-0af96d536e34" />
+<img width="2840" height="1546" alt="Ekran görüntüsü 2026-07-03 220501" src="https://github.com/user-attachments/assets/121535ac-a99b-4a42-97ce-d23b4a91330c" />
+<img width="2876" height="1538" alt="Ekran görüntüsü 2026-07-03 220557" src="https://github.com/user-attachments/assets/3cd901ab-96ac-4fa2-a311-e39b622ccce3" />
+<img width="2878" height="1532" alt="Ekran görüntüsü 2026-07-03 220607" src="https://github.com/user-attachments/assets/4ad9dca7-c1e0-4ebc-b7a0-f2b9c7a8be9e" />
+<img width="2880" height="1616" alt="Ekran görüntüsü 2026-07-03 220621" src="https://github.com/user-attachments/assets/6257c64d-d10b-4bc1-af43-bad023128919" />
+<img width="2872" height="1542" alt="Ekran görüntüsü 2026-07-03 220634" src="https://github.com/user-attachments/assets/06966f5b-ff25-4ae9-8048-a2195d5965ea" />
 # 💳 BigTx-FraudPulse
 
 **BigTx-FraudPulse** is a cutting-edge, high-throughput Big Data analytics and Explainable AI (XAI) fraud detection system. It processes millions of streaming financial transactions (Credit Card, FAST, EFT, Mobile QR) in real time using a modern event-driven architecture, classifies suspicious activities, and displays live metrics on a futuristic security SCADA dashboard.
