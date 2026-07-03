@@ -1,0 +1,5 @@
+kafka-python
+bytewax==0.18.1
+clickhouse-connect
+fastapi
+uvicorn
