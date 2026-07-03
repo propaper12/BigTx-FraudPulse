@@ -1,12 +1,3 @@
-<img width="2880" height="1538" alt="Ekran görüntüsü 2026-07-03 221927" src="https://github.com/user-attachments/assets/9a379cdd-900f-48a7-a11f-073c19f3a27d" />
-<img width="2880" height="1534" alt="Ekran görüntüsü 2026-07-03 221933" src="https://github.com/user-attachments/assets/3dd2b7d7-f1d9-4525-b214-f3cc039d5cb8" />
-<img width="2872" height="1542" alt="Ekran görüntüsü 2026-07-03 220634" src="https://github.com/user-attachments/assets/261ce079-6bc3-4eef-837d-3d9dcf7b1182" />
-<img width="2872" height="1538" alt="Ekran görüntüsü 2026-07-03 220452" src="https://github.com/user-attachments/assets/68644161-1055-4455-ba87-0af96d536e34" />
-<img width="2840" height="1546" alt="Ekran görüntüsü 2026-07-03 220501" src="https://github.com/user-attachments/assets/121535ac-a99b-4a42-97ce-d23b4a91330c" />
-<img width="2876" height="1538" alt="Ekran görüntüsü 2026-07-03 220557" src="https://github.com/user-attachments/assets/3cd901ab-96ac-4fa2-a311-e39b622ccce3" />
-<img width="2878" height="1532" alt="Ekran görüntüsü 2026-07-03 220607" src="https://github.com/user-attachments/assets/4ad9dca7-c1e0-4ebc-b7a0-f2b9c7a8be9e" />
-<img width="2880" height="1616" alt="Ekran görüntüsü 2026-07-03 220621" src="https://github.com/user-attachments/assets/6257c64d-d10b-4bc1-af43-bad023128919" />
-<img width="2872" height="1542" alt="Ekran görüntüsü 2026-07-03 220634" src="https://github.com/user-attachments/assets/06966f5b-ff25-4ae9-8048-a2195d5965ea" />
 # 💳 BigTx-FraudPulse
 
 **BigTx-FraudPulse** is a cutting-edge, high-throughput Big Data analytics and Explainable AI (XAI) fraud detection system. It processes millions of streaming financial transactions (Credit Card, FAST, EFT, Mobile QR) in real time using a modern event-driven architecture, classifies suspicious activities, and displays live metrics on a futuristic security SCADA dashboard.
@@ -138,3 +129,13 @@ Once everything is up, you can access the following services in your browser:
 | **Redpanda Console** | [http://localhost:8080](http://localhost:8080) | Inspect Kafka partitions, topics, and message feeds |
 | **FastAPI Swagger API** | [http://localhost:8000/docs](http://localhost:8000/docs) | Interactive API endpoints & model metadata |
 | **ClickHouse Play** | [http://localhost:8123/play](http://localhost:8123/play) | Direct SQL querying playground |
+
+<img width="2880" height="1538" alt="Ekran görüntüsü 2026-07-03 221927" src="https://github.com/user-attachments/assets/9a379cdd-900f-48a7-a11f-073c19f3a27d" />
+<img width="2880" height="1534" alt="Ekran görüntüsü 2026-07-03 221933" src="https://github.com/user-attachments/assets/3dd2b7d7-f1d9-4525-b214-f3cc039d5cb8" />
+<img width="2872" height="1542" alt="Ekran görüntüsü 2026-07-03 220634" src="https://github.com/user-attachments/assets/261ce079-6bc3-4eef-837d-3d9dcf7b1182" />
+<img width="2872" height="1538" alt="Ekran görüntüsü 2026-07-03 220452" src="https://github.com/user-attachments/assets/68644161-1055-4455-ba87-0af96d536e34" />
+<img width="2840" height="1546" alt="Ekran görüntüsü 2026-07-03 220501" src="https://github.com/user-attachments/assets/121535ac-a99b-4a42-97ce-d23b4a91330c" />
+<img width="2876" height="1538" alt="Ekran görüntüsü 2026-07-03 220557" src="https://github.com/user-attachments/assets/3cd901ab-96ac-4fa2-a311-e39b622ccce3" />
+<img width="2878" height="1532" alt="Ekran görüntüsü 2026-07-03 220607" src="https://github.com/user-attachments/assets/4ad9dca7-c1e0-4ebc-b7a0-f2b9c7a8be9e" />
+<img width="2880" height="1616" alt="Ekran görüntüsü 2026-07-03 220621" src="https://github.com/user-attachments/assets/6257c64d-d10b-4bc1-af43-bad023128919" />
+<img width="2872" height="1542" alt="Ekran görüntüsü 2026-07-03 220634" src="https://github.com/user-attachments/assets/06966f5b-ff25-4ae9-8048-a2195d5965ea" />
