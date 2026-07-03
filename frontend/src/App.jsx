@@ -228,7 +228,7 @@ function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
-  const [chartMetric, setChartMetric] = useState('load');
+  const [chartMetric, setChartMetric] = useState('velocity');
   const [diagTab, setDiagTab] = useState('radar');
   const [showChatPopover, setShowChatPopover] = useState(false);
   const [solarRadiation, setSolarRadiation] = useState(500); // W/m^2
@@ -1043,13 +1043,14 @@ function App() {
                   {/* Area Chart Panel */}
                   <div className="panel chart-panel" style={{ height: '375px' }}>
                     <div className="panel-header">
-                      <h3 style={{ fontSize: '11px', fontWeight: 'bold' }}>{
-                        chartMetric === 'load' ? TRANSLATIONS[lang].chart_load_title :
-                        chartMetric === 'voltage' ? (lang === 'TR' ? "CANLI GERİLİM SEVİYESİ (V) vs. ANLIK DALGALANMALAR" : "LIVE VOLTAGE LEVEL (V) vs. TRANSIENT FLUCTUATIONS") :
-                        (lang === 'TR' ? "CANLI SICAKLIK DEĞERLERİ (°C) vs. TERMAL ALARMLAR" : "LIVE CORE TEMPERATURE (°C) vs. THERMAL ALARMS")
+                      <h3 style={{ fontSize: '11px', color: 'var(--cyan)', margin: 0, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                      📈 {
+                        chartMetric === 'velocity' ? (lang === 'TR' ? "CANLI İŞLEM AKIŞ HIZI vs. ŞÜPHELİ HIZ UYARILARI" : "LIVE TRANSACTION VELOCITY vs. HIGH VELOCITY ALERTS") :
+                        chartMetric === 'amount' ? (lang === 'TR' ? "İŞLEM HACMİ AKIŞI (TRY) vs. GÜVENLİKSİZ TUTAR BLOKAJI" : "TRANSACTION VOLUME STREAM (TRY) vs. BLOCKED FRAUD") :
+                        (lang === 'TR' ? "YAPAY ZEKA RİSK SEVİYESİ vs. KRİTİK ALARMLAR" : "AI THREAT RISK LEVEL vs. CRITICAL INCIDENTS")
                       }</h3>
                       <div style={{ display: 'flex', gap: '4px' }}>
-                        {['load', 'voltage', 'temp'].map((m) => (
+                        {['velocity', 'amount', 'risk'].map((m) => (
                           <button
                             key={m}
                             onClick={() => setChartMetric(m)}
@@ -1065,9 +1066,9 @@ function App() {
                               transition: 'all 0.2s'
                             }}
                           >
-                            {m === 'load' ? (lang === 'TR' ? '⚡ Yük' : '⚡ Load') :
-                             m === 'voltage' ? (lang === 'TR' ? '📉 Gerilim' : '📉 Volt') :
-                             (lang === 'TR' ? '🌡️ Sıcaklık' : '🌡️ Temp')}
+                            {m === 'velocity' ? (lang === 'TR' ? '⚡ Hız / Frekans' : '⚡ Velocity') :
+                             m === 'amount' ? (lang === 'TR' ? '💰 İşlem Tutarı' : '💰 Tx Volume') :
+                             (lang === 'TR' ? '🧠 AI Risk Analizi' : '🧠 AI Risk')}
                           </button>
                         ))}
                       </div>
@@ -1075,15 +1076,15 @@ function App() {
                     <div className="chart-legend">
                       <span className="legend-item">
                         <span className="dot bg-cyan"></span> 
-                        {chartMetric === 'load' ? (lang === 'TR' ? 'Şebeke Toplam Yükü' : 'Grid Total Load') :
-                         chartMetric === 'voltage' ? (lang === 'TR' ? 'Şebeke Ort. Gerilim' : 'Grid Avg Voltage') :
-                         (lang === 'TR' ? 'Ortalama Sıcaklık' : 'Avg Core Temp')}
+                        {chartMetric === 'velocity' ? (lang === 'TR' ? 'Toplam Saniyelik İşlem' : 'Total Streaming Tx') :
+                         chartMetric === 'amount' ? (lang === 'TR' ? 'Toplam Transfer Hacmi (TRY)' : 'Total Tx Volume (TRY)') :
+                         (lang === 'TR' ? 'Ortalama Yapay Zeka Risk Skoru' : 'Avg AI Threat Score')}
                       </span>
                       <span className="legend-item">
                         <span className="dot bg-red"></span> 
-                        {chartMetric === 'load' ? (lang === 'TR' ? 'Kritik Aşırı Yüklenmeler' : 'Critical Overloads') :
-                         chartMetric === 'voltage' ? (lang === 'TR' ? 'Voltaj Dalgalanmaları' : 'Voltage Drops') :
-                         (lang === 'TR' ? 'Termal Alarmlar' : 'Thermal Warnings')}
+                        {chartMetric === 'velocity' ? (lang === 'TR' ? 'Yüksek Hızlı Bot Atakları' : 'High Velocity Bot Attacks') :
+                         chartMetric === 'amount' ? (lang === 'TR' ? 'Bloke Edilen Tutar (TRY)' : 'Blocked Fraud Volume (TRY)') :
+                         (lang === 'TR' ? 'Kritik Riskli İşlem Sayısı' : 'Critical Threat Incidents')}
                       </span>
                     </div>
                     <div className="chart-container">
@@ -1092,12 +1093,12 @@ function App() {
                           timeline.map((t, idx) => {
                             let value1 = t.posts;
                             let value2 = t.frauds;
-                            if (chartMetric === 'voltage') {
-                              value1 = Math.round(218 + Math.sin(idx) * 4);
-                              value2 = alerts.filter(a => a.reason === 'VOLTAGE_DROP' && !revertedIds.includes(`${a.account_id}-${a.hashtag}-${a.timestamp}`)).length * 2 + (idx % 2 === 0 ? 1 : 0);
-                            } else if (chartMetric === 'temp') {
-                              value1 = Math.round(42 + Math.cos(idx) * 3);
-                              value2 = alerts.filter(a => a.reason === 'OVERHEATING' && !revertedIds.includes(`${a.account_id}-${a.hashtag}-${a.timestamp}`)).length * 2 + (idx % 3 === 0 ? 2 : 0);
+                            if (chartMetric === 'amount') {
+                              value1 = Math.round(t.posts * 1500);
+                              value2 = alerts.filter(a => a.reason === 'CRITICAL_AMOUNT').length * 25000 + (idx % 2 === 0 ? 5000 : 0);
+                            } else if (chartMetric === 'risk') {
+                              value1 = Math.round(40 + Math.sin(idx) * 8);
+                              value2 = alerts.filter(a => a.truth_score < 40).length * 10 + (idx % 3 === 0 ? 15 : 0);
                             }
                             
                             // Multipliers based on timeframe
@@ -1227,16 +1228,16 @@ function App() {
                       {diagTab === 'radar' && (
                         <ResponsiveContainer width="100%" height="100%">
                           <RadarChart cx="50%" cy="50%" outerRadius="70%" data={[
-                            { subject: lang === 'TR' ? 'Yük Dengesi' : 'Load Balance', value: 85 },
-                            { subject: lang === 'TR' ? 'Gerilim Kararlılığı' : 'Volt Stability', value: 90 },
-                            { subject: lang === 'TR' ? 'Güç Faktörü' : 'Power Factor', value: 88 },
-                            { subject: lang === 'TR' ? 'Termal Limit' : 'Thermal Limit', value: 74 },
-                            { subject: lang === 'TR' ? 'Frekans Kararlılığı' : 'Freq Stability', value: 96 }
+                            { subject: lang === 'TR' ? 'Tutar Riski' : 'Amount Risk', value: 85 },
+                            { subject: lang === 'TR' ? 'İşlem Hızı' : 'Velocity Risk', value: 90 },
+                            { subject: lang === 'TR' ? 'Offshore IP' : 'Offshore IP', value: 88 },
+                            { subject: lang === 'TR' ? 'Çoklu Kart' : 'Multi-Card Attempt', value: 74 },
+                            { subject: lang === 'TR' ? 'Gece İşlemi' : 'Night Activity', value: 96 }
                           ]}>
                             <PolarGrid stroke="var(--border-color)" />
                             <PolarAngleAxis dataKey="subject" tick={{ fill: 'var(--text-muted)', fontSize: 7.5 }} />
                             <PolarRadiusAxis angle={30} domain={[0, 100]} tick={{ fill: 'var(--text-muted)', fontSize: 6 }} />
-                            <Radar name="Stability" dataKey="value" stroke="var(--cyan)" fill="var(--cyan)" fillOpacity={0.25} />
+                            <Radar name="Threats" dataKey="value" stroke="var(--cyan)" fill="var(--cyan)" fillOpacity={0.25} />
                           </RadarChart>
                         </ResponsiveContainer>
                       )}
@@ -1245,21 +1246,21 @@ function App() {
                         <ResponsiveContainer width="100%" height="100%">
                           <ScatterChart margin={{ top: 15, right: 10, bottom: 5, left: -25 }}>
                             <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" opacity={0.3} />
-                            <XAxis type="number" dataKey="load" name="Load" unit="kW" tick={{ fill: 'var(--text-muted)', fontSize: 8 }} />
-                            <YAxis type="number" dataKey="temp" name="Temperature" unit="°C" tick={{ fill: 'var(--text-muted)', fontSize: 8 }} />
+                            <XAxis type="number" dataKey="load" name="Amount" unit=" TRY" tick={{ fill: 'var(--text-muted)', fontSize: 8 }} />
+                            <YAxis type="number" dataKey="temp" name="Velocity" unit=" tx/s" tick={{ fill: 'var(--text-muted)', fontSize: 8 }} />
                             <Tooltip cursor={{ strokeDasharray: '3 3' }} contentStyle={{ backgroundColor: 'var(--bg-panel)', border: '1px solid var(--border-color)', borderRadius: '4px', fontSize: '9px', color: 'var(--text-main)' }} />
-                            <Scatter name="Devices" data={[
-                              { load: 120, temp: 35, name: 'Normal Meter' },
-                              { load: 220, temp: 42, name: 'Normal Meter' },
-                              { load: 310, temp: 48, name: 'Normal Trafo' },
-                              { load: 180, temp: 39, name: 'Normal Charger' },
-                              { load: 450, temp: 85, name: 'Anomaly Trafo 301' },
-                              { load: 380, temp: 75, name: 'Anomaly Charger 202' },
-                              { load: 95, temp: 72, name: 'Anomaly Meter 103' }
+                            <Scatter name="Transactions" data={[
+                              { load: 1200, temp: 1, name: 'Normal CC Tx' },
+                              { load: 4500, temp: 2, name: 'Normal FAST Tx' },
+                              { load: 23000, temp: 12, name: 'Anomaly Card Bot' },
+                              { load: 1800, temp: 1, name: 'Normal QR Tx' },
+                              { load: 48000, temp: 18, name: 'Critical Amount Fraud' },
+                              { load: 38000, temp: 1, name: 'Offshore Panama IP' },
+                              { load: 950, temp: 15, name: 'High-Frequency Bot' }
                             ]} fill="var(--cyan)">
                               <Cell fill="var(--green)" />
                               <Cell fill="var(--green)" />
-                              <Cell fill="var(--green)" />
+                              <Cell fill="var(--red)" />
                               <Cell fill="var(--green)" />
                               <Cell fill="var(--red)" />
                               <Cell fill="var(--red)" />
@@ -1276,10 +1277,10 @@ function App() {
                               <PieChart>
                                 <Pie
                                   data={[
-                                    { name: lang === 'TR' ? 'Aşırı Yük' : 'Overload', value: 45 },
-                                    { name: lang === 'TR' ? 'Aşırı Isınma' : 'Overheating', value: 30 },
-                                    { name: lang === 'TR' ? 'Düşük Voltaj' : 'Volt Drop', value: 15 },
-                                    { name: lang === 'TR' ? 'Sızıntı / Hırsızlık' : 'Power Leak', value: 10 }
+                                    { name: lang === 'TR' ? 'Hız Sınır Aşımı' : 'Velocity Limit', value: 45 },
+                                    { name: lang === 'TR' ? 'Offshore IP' : 'Offshore IP', value: 30 },
+                                    { name: lang === 'TR' ? 'Tutar Limit Aşımı' : 'Amount Limit', value: 15 },
+                                    { name: lang === 'TR' ? 'Kimlik Hırsızlığı' : 'Identity Theft', value: 10 }
                                   ]}
                                   cx="50%"
                                   cy="50%"
@@ -1297,10 +1298,10 @@ function App() {
                             </ResponsiveContainer>
                           </div>
                           <div style={{ display: 'flex', justifyContent: 'center', gap: '8px', flexWrap: 'wrap', fontSize: '7.5px', marginTop: '4px' }}>
-                            <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }}><span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--cyan)' }}></span> {lang === 'TR' ? 'Aşırı Yük' : 'Overload'}</span>
-                            <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }}><span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--orange)' }}></span> {lang === 'TR' ? 'Isınma' : 'Overheating'}</span>
-                            <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }}><span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--red)' }}></span> {lang === 'TR' ? 'Düşük Volt' : 'Volt Drop'}</span>
-                            <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }}><span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--purple)' }}></span> {lang === 'TR' ? 'Sızıntı' : 'Power Leak'}</span>
+                            <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }}><span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--cyan)' }}></span> {lang === 'TR' ? 'Hız Sınırı' : 'Velocity Limit'}</span>
+                            <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }}><span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--orange)' }}></span> {lang === 'TR' ? 'Offshore IP' : 'Offshore IP'}</span>
+                            <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }}><span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--red)' }}></span> {lang === 'TR' ? 'Tutar Limiti' : 'Amount Limit'}</span>
+                            <span style={{ display: 'flex', alignItems: 'center', gap: '3px' }}><span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--purple)' }}></span> {lang === 'TR' ? 'Kimlik Avı' : 'Identity Theft'}</span>
                           </div>
                         </div>
                       )}
@@ -1565,7 +1566,40 @@ function App() {
                     </div>
                   </div>
 
-                  {/* Harita kartı Coğrafi Analiz sekmesine taşındığı için buradan kaldırıldı */}
+                  {/* City-Based Fraud Risk Bar Chart */}
+                  <div className="panel" style={{ height: '200px', display: 'flex', flexDirection: 'column', overflow: 'hidden', marginBottom: '10px' }}>
+                    <div className="panel-header" style={{ marginBottom: '8px' }}>
+                      <h3>📍 {lang === 'TR' ? 'Şehir & Ağ Geçidi Risk Dağılımı' : 'City & Gateway Risk Distribution'}</h3>
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart
+                          data={[
+                            { city: 'Istanbul', risk: alerts.filter(a => a.city === 'Istanbul' && a.truth_score < 50).length * 10 + 5 },
+                            { city: 'Ankara', risk: alerts.filter(a => a.city === 'Ankara' && a.truth_score < 50).length * 8 + 4 },
+                            { city: 'Izmir', risk: alerts.filter(a => a.city === 'Izmir' && a.truth_score < 50).length * 6 + 2 },
+                            { city: 'Lefkoşa', risk: alerts.filter(a => a.city === 'Nicosia' && a.truth_score < 50).length * 28 + 18 },
+                            { city: 'Panama', risk: alerts.filter(a => a.city === 'Panama City' && a.truth_score < 50).length * 35 + 22 },
+                            { city: 'Cayman', risk: alerts.filter(a => a.city === 'Grand Cayman' && a.truth_score < 50).length * 40 + 25 }
+                          ].map(d => ({ ...d, risk: Math.min(100, d.risk) }))}
+                          margin={{ top: 10, right: 10, left: -25, bottom: 5 }}
+                        >
+                          <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" opacity={0.3} />
+                          <XAxis dataKey="city" tick={{ fill: 'var(--text-muted)', fontSize: 8 }} />
+                          <YAxis type="number" domain={[0, 100]} unit="%" tick={{ fill: 'var(--text-muted)', fontSize: 8 }} />
+                          <Tooltip contentStyle={{ backgroundColor: 'var(--bg-panel)', border: '1px solid var(--border-color)', borderRadius: '4px', fontSize: '9px', color: 'var(--text-main)' }} />
+                          <Bar dataKey="risk" fill="var(--cyan)" radius={[3, 3, 0, 0]}>
+                            <Cell fill="var(--cyan)" />
+                            <Cell fill="var(--cyan)" />
+                            <Cell fill="var(--cyan)" />
+                            <Cell fill="var(--orange)" />
+                            <Cell fill="var(--red)" />
+                            <Cell fill="var(--red)" />
+                          </Bar>
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
 
                   {/* Terminal panel */}
                   <div className="panel terminal-panel">
